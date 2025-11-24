@@ -14,7 +14,7 @@ import tasks, publisher
 
 async def main():
 
-    connection = await aio_pika.connect_robust("amqp://user:password@rabbitmq/")
+    connection = await aio_pika.connect_robust("amqp://user:password@rabbitmq/", heartbeat=30)
     async with connection:
         channel = await connection.channel()
 

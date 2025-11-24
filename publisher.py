@@ -40,7 +40,7 @@ async def main():
             batch_end = time.perf_counter()
             batch_time = batch_end - batch_start
 
-            logger.info(f"Batch {batch_no}: {len(batch)} files" f"{batch_time:.6f} sec")
+            print(f"Batch {batch_no}: {len(batch)} files" f"{batch_time:.6f} sec")
 
             batch_no += 1
 
