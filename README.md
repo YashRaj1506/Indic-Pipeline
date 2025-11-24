@@ -156,6 +156,22 @@ Accepted,/path/to/file.flac,False,41.08,0.22,True,0.81,0.23
 
 ---
 
+## System Architecture
+This pipeline follows a message-driven, parallel-processing architecture built using RabbitMQ and Celery. The system operates in the following way:
+
+1. The dataset folder contains all raw audio files from the IndicVoices dataset. These audio files are processed in batches of 10.
+
+2. A batching component creates these batches and the publisher.py file sends each batch to a RabbitMQ queue. Each message in the queue represents one batch of 10 audio files.
+
+3. On the other end of the queue, a consumer listens for incoming batches. When a batch arrives, Celery workers pick up the task and process the batch concurrently and in parallel. This allows multiple batches to be evaluated at the same time for efficiency.
+
+4. For every audio clip inside the batch, the system applies all metric checks duration, SNR, silence ratio, clipping, VAD ratio, and ASR confidence.
+
+5. After evaluation, the results are stored in a CSV file which contains the metric scores and pass or fail status for each audio clip.
+
+A diagram will be added here to visually represent the entire flow from batching, queueing, consuming, parallel processing, and evaluation.
+
+
 ## ✔️ Summary
 This pipeline provides a robust filtering mechanism for the **IndicVoices** dataset by applying industry‑standard audio metrics. By using duration checks, SNR, silence ratio, clipping detection, VAD, and ASR confidence, we ensure that only high-quality, speech‑rich, and model‑friendly audio samples pass through. This improves downstream training stability, accuracy, and overall dataset cleanliness.
 
