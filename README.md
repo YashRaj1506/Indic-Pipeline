@@ -9,6 +9,14 @@ This pipeline filters, processes, and validates audio clips using multiple audio
 
 ---
 
+## Clone the Repo
+
+```sh
+git clone https://github.com/YashRaj1506/Indic-Pipeline
+```
+
+---
+
 ## 📌 Makefile Commands
 You can run the entire pipeline using the following commands:
 
@@ -112,10 +120,20 @@ There is a configuration file named **`metrics_config.json`**, which contains th
 ```json
 {
     "snr_min": 20.00,
-    "silence_ratio_min": 60.00,
+    "silence_ratio_min": 0.50,
     "vad_ratio": 0.40,
     "asr_confidence": 0.35
 }
+```
+
+```sh
+Our Threshold Logic :
+    result["has_clipping"] == False
+    result["snr_db"] > snr_val
+    result["silence_ratio"] < silence_ratio_val
+    result["overall_duration"] == True
+    result["vad_ratio"] > vad_ratio_val
+    result["asr_confidence"] > asr_confidence_val
 ```
 
 You can modify this file to adjust the audio‑filtering thresholds as needed.
