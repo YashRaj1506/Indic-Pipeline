@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: rabbitmq-ai
+    restart: unless-stopped
+    ports:
+      - "5672:5672"      
+      - "15672:15672"     
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  consumer:
+    build: .
+    container_name: consumer
+    restart: unless-stopped
+    depends_on:
+      - rabbitmq
+    command: bash wait-for-rabbitmq.sh rabbitmq python consumer.py
+    environment:
+      - CELERY_BROKER_URL=amqp://user:password@rabbitmq:5672//
+    volumes:
+      - ./indicvoices_data:/indicvoices_data
+      - .:/app
+
+  celery_worker:
+      build: .
+      container_name: celery_worker
+      restart: unless-stopped
+      depends_on:
+        - rabbitmq
+      command: celery -A tasks worker --loglevel=info
+      environment:
+      - CELERY_BROKER_URL=amqp://user:password@rabbitmq:5672//
+      volumes:
+        - ./indicvoices_data:/indicvoices_data
+        - .:/app
+
+volumes:
+  rabbitmq_data:
