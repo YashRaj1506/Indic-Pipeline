@@ -171,6 +171,7 @@ This pipeline follows a message-driven, parallel-processing architecture built u
 
 A diagram will be added here to visually represent the entire flow from batching, queueing, consuming, parallel processing, and evaluation.
 
+![System Design](system_diagram.png)
 
 ## ✔️ Summary
 This pipeline provides a robust filtering mechanism for the **IndicVoices** dataset by applying industry‑standard audio metrics. By using duration checks, SNR, silence ratio, clipping detection, VAD, and ASR confidence, we ensure that only high-quality, speech‑rich, and model‑friendly audio samples pass through. This improves downstream training stability, accuracy, and overall dataset cleanliness.
