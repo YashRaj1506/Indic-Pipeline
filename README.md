@@ -9,6 +9,9 @@ This pipeline filters, processes, and validates audio clips using multiple audio
 
 ---
 
+##
+Make sure the indicvoices_data dataset has been downloaded and is present in the root directory.
+
 ## Clone the Repo
 
 ```sh
@@ -172,6 +175,18 @@ This pipeline follows a message-driven, parallel-processing architecture built u
 A diagram will be added here to visually represent the entire flow from batching, queueing, consuming, parallel processing, and evaluation.
 
 ![System Design](system_diagram.png)
+
+---
+
+### How this archtiecutre Scales
+
+1) RabbitMQ decouples producers from workers, letting you add any number of Celery worker nodes without changing the pipeline.
+
+2) We can add more servers, each additional server running Celery workers will increases parallel processing capacity, allowing more audio files to be evaluated simultaneously.
+
+3) Throughput scales linearl, the more worker machines you add, the faster large datasets are processed.
+
+4) If we have better GPU resources, we can use better models in whispers to increase the accuracy of ASR checks.
 
 ## ✔️ Summary
 This pipeline provides a robust filtering mechanism for the **IndicVoices** dataset by applying industry‑standard audio metrics. By using duration checks, SNR, silence ratio, clipping detection, VAD, and ASR confidence, we ensure that only high-quality, speech‑rich, and model‑friendly audio samples pass through. This improves downstream training stability, accuracy, and overall dataset cleanliness.
