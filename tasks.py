@@ -35,7 +35,7 @@ def process_batch(batch):
     errors = 0
     good_files = 0
 
-    with open(os.path.join(OUTPUTS_DIR, "good_audio_list.txt"), "a") as f:
+    with open(os.path.join(OUTPUTS_DIR, "good_audio_list.csv"), "a") as f:
         for audios in batch["files"]:
             try:
                 result = analyze_audio_quality(audios)
@@ -47,10 +47,12 @@ def process_batch(batch):
                     and result["silence_ratio"] < silence_ratio_val
                     and result["overall_duration"] == True
                     and result["vad_ratio"] > vad_ratio_val
-                    and result["asr_confidence"] < asr_confidence_val
+                    and result["asr_confidence"] > asr_confidence_val
                 ):
-                    f.write(audios + "\n")
+                    f.write(f"Accepted,{audios},{result['has_clipping']},{result['snr_db']},{result['silence_ratio']},{result['overall_duration']},{result['vad_ratio']},{result['asr_confidence']}" + "\n")
                     good_files += 1
+                else:
+                    f.write(f"Rejected,{audios},{result['has_clipping']},{result['snr_db']},{result['silence_ratio']},{result['overall_duration']},{result['vad_ratio']},{result['asr_confidence']}" + "\n")
 
             except Exception as e:
                 errors += 1

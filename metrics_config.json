@@ -1,6 +1,6 @@
 {
     "snr_min": 20.00,
-    "silence_ratio_min": 60.00,
+    "silence_ratio_min": 0.50,
     "vad_ratio": 0.40,
     "asr_confidence": 0.35
 }

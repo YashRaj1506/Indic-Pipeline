@@ -9,4 +9,4 @@ up:
 	docker-compose up
 
 start:
-	python publishers.py
+	python publisher.py

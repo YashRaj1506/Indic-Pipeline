@@ -122,6 +122,22 @@ You can modify this file to adjust the audio‑filtering thresholds as needed.
 
 ---
 
+## Output
+
+The final CSV file "good_audio_list.csv" will be build inside outputs folder.
+
+output format :
+
+```sh
+Rejected,/path/to/file.flac,False,22.29,0.0,True,0.75,0.41
+Rejected,/path/to/file.flac,False,36.36,0.29,True,0.73,0.37
+Rejected,/path/to/file.flac,False,44.95,0.13,True,0.86,0.42
+...
+Accepted,/path/to/file.flac,False,41.08,0.22,True,0.81,0.23
+```
+
+---
+
 ## ✔️ Summary
 This pipeline provides a robust filtering mechanism for the **IndicVoices** dataset by applying industry‑standard audio metrics. By using duration checks, SNR, silence ratio, clipping detection, VAD, and ASR confidence, we ensure that only high-quality, speech‑rich, and model‑friendly audio samples pass through. This improves downstream training stability, accuracy, and overall dataset cleanliness.
 
