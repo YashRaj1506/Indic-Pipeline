@@ -198,7 +198,7 @@ def analyze_audio_quality(audio_path):
 
 
 if __name__ == "__main__":
-    result = analyze_audio_quality("yash1.mp3")
+    result = analyze_audio_quality("hehe.flac")
     print(result)
 
 
