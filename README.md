@@ -52,6 +52,8 @@ Run using:
 make up
 ```
 
+## After writing the "make up" command, wait for the containers to be ready and let it download all the required elements.
+
 ### **4. Start publishers**
 This runs the message‑publishing component.
 ```sh
